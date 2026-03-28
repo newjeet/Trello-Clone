@@ -584,7 +584,11 @@ export default function CardDetailModal({ cardId, board, onClose, onArchive, onD
                           <div style={{ display: 'flex', gap: '8px' }}>
                             <button className="btn btn-subtle" style={{ padding: '0', textDecoration: 'underline' }} onClick={() => handleDeleteAttachment(attachment.id)}>Delete</button>
                             {isImage && (
-                              <button className="btn btn-subtle" style={{ padding: '0', textDecoration: 'underline' }} onClick={() => handleMakeCover(attachment)}>
+                              <button 
+                                className="btn btn-subtle" 
+                                style={{ padding: '0', textDecoration: 'underline' }} 
+                                onClick={() => card.cover_image === `${UPLOADS_BASE}/${attachment.file_name}` ? handleRemoveCover() : handleMakeCover(attachment)}
+                              >
                                 {card.cover_image === `${UPLOADS_BASE}/${attachment.file_name}` ? 'Remove Cover' : 'Make Cover'}
                               </button>
                             )}
