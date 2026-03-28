@@ -214,4 +214,3 @@ Full REST endpoints available for all features.
 4. **Important**: Ensure you use a platform with persistent disk storage if you want uploaded files to persist across restarts.
 
 ---
-**Good luck with your SDE Intern evaluation!** 🚀
