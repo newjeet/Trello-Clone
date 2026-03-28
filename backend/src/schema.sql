@@ -1,9 +1,6 @@
 -- Trello Clone Database Schema
 -- MySQL
 
-CREATE DATABASE IF NOT EXISTS trello_clone;
-USE trello_clone;
-
 -- Members table (pre-seeded users, no auth required)
 CREATE TABLE IF NOT EXISTS members (
   id INT AUTO_INCREMENT PRIMARY KEY,

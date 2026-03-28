@@ -183,34 +183,12 @@ Trello_antigravity/
 
 ### Labels, Checklists, Members, Comments, Search
 Full REST endpoints available for all features.
-
-## 🎨 Design Decisions
-
-1. **No Authentication** — A default user (Aarav Patel) is assumed logged in. 5 sample Indian members are pre-seeded for assignment (Aarav, Diya, Rohan, Neha, Arjun).
-2. **Optimistic UI & Live Transitions** — Lists and cards slide smoothly to create space during drag, providing a professional "mechanical" feel.
-3. **@dnd-kit** — Used for robust, modern drag-and-drop interactions with custom collision detection.
-4. **CSS Custom Properties** — A complete design system with Trello-accurate hex codes and ghost-button patterns.
-5. **Float Positions** — Enables high-performance reordering using a numeric `position` strategy.
-
-## 📝 Assumptions
-
-- No user authentication is required (single default user: **Aarav Patel**)
-- Sample data is pre-loaded via the seed script with **Indian localization**
-- The application is optimized for local development and production deployment
-- MySQL 8.0 or equivalent cloud database (TiDB/Aiven) is used for persistence
-
-## 🚀 Deployment Guide
-
-### Frontend (Vercel/Netlify)
-1. Push your code to GitHub.
-2. Connect your repository to Vercel/Netlify.
-3. Set the Environment Variable `VITE_API_BASE_URL` to your backend URL.
-4. Deploy!
-
-### Backend (Render/Railway)
-1. Create a Web Service on Render.
-2. Connect your MySQL database (Aiven/TiDB).
-3. Set Environment Variables for `DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`, and `PORT`.
-4. **Important**: Ensure you use a platform with persistent disk storage if you want uploaded files to persist across restarts.
+npm install
+# Set VITE_API_BASE_URL in .env
+npm run dev
+```
 
 ---
+
+## 📄 License
+MIT License - Created for Demonstration Purposes.

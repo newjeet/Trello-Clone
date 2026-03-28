@@ -1,5 +1,6 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { UPLOADS_BASE } from '../../api/api';
 
 export default function CardComponent({ card, board, listId, onClick }) {
   const {
@@ -113,7 +114,7 @@ export default function CardComponent({ card, board, listId, onClick }) {
       {/* Cover */}
       {card.cover_image ? (
         <div className="card-cover" style={{ 
-          backgroundImage: `url(${card.cover_image})`,
+          backgroundImage: `url(${card.cover_image.startsWith('http') ? card.cover_image : `${UPLOADS_BASE}/${card.cover_image.replace('/uploads/', '')}`})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           height: '140px' 

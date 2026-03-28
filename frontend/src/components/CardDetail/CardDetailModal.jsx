@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import * as api from '../../api/api';
+import { UPLOADS_BASE } from '../../api/api';
 
 const COVER_COLORS = ['#61BD4F', '#F2D600', '#FF9F1A', '#EB5A46', '#C377E0', '#0079BF', '#00C2E0', '#51E898', '#FF78CB', '#344563'];
 
@@ -170,8 +171,8 @@ export default function CardDetailModal({ cardId, board, onClose, onArchive, onD
 
   async function handleRemoveCover() {
     try {
-      await api.updateCard(cardId, { cover_color: null });
-      setCard(prev => ({ ...prev, cover_color: null }));
+      await api.updateCard(cardId, { cover_color: null, cover_image: null });
+      setCard(prev => ({ ...prev, cover_color: null, cover_image: null }));
       setShowCoverPopover(false);
     } catch (err) {
       console.error('Failed to remove cover:', err);
@@ -275,7 +276,7 @@ export default function CardDetailModal({ cardId, board, onClose, onArchive, onD
         const remaining = (prev.attachments || []).filter(a => a.id !== attachmentId);
         const attachment = (prev.attachments || []).find(a => a.id === attachmentId);
         let newCover = prev.cover_image;
-        if (attachment && prev.cover_image === `/uploads/${attachment.file_name}`) {
+        if (attachment && prev.cover_image === `${UPLOADS_BASE}/${attachment.file_name}`) {
           newCover = null;
         }
         return { ...prev, attachments: remaining, cover_image: newCover };
@@ -287,9 +288,9 @@ export default function CardDetailModal({ cardId, board, onClose, onArchive, onD
 
   async function handleMakeCover(attachment) {
     try {
-      const coverUrl = `/uploads/${attachment.file_name}`;
+      const coverUrl = `${UPLOADS_BASE}/${attachment.file_name}`;
       await api.updateCard(cardId, { cover_image: coverUrl });
-      setCard(prev => ({ ...prev, cover_image: coverUrl }));
+      setCard(prev => ({ ...prev, cover_image: coverUrl, cover_color: null }));
     } catch (err) {
       console.error('Failed to set cover image:', err);
     }
@@ -567,10 +568,10 @@ export default function CardDetailModal({ cardId, board, onClose, onArchive, onD
                     const isImage = attachment.mime_type?.startsWith('image/');
                     return (
                       <div key={attachment.id} className="attachment-item" style={{ display: 'flex', gap: '16px', marginBottom: '16px', alignItems: 'center' }}>
-                        <a href={`/uploads/${attachment.file_name}`} target="_blank" rel="noopener noreferrer" 
+                        <a href={`${UPLOADS_BASE}/${attachment.file_name}`} target="_blank" rel="noopener noreferrer" 
                            style={{ width: '112px', height: '80px', background: '#e0e0e0', borderRadius: '3px', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center', flexShrink: 0, textDecoration: 'none' }}>
                           {isImage ? (
-                            <img src={`/uploads/${attachment.file_name}`} alt={attachment.original_name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            <img src={`${UPLOADS_BASE}/${attachment.file_name}`} alt={attachment.original_name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                           ) : (
                             <span style={{ fontWeight: 'bold', fontSize: '18px', color: '#5e6c84' }}>{attachment.original_name.split('.').pop().toUpperCase()}</span>
                           )}
@@ -584,7 +585,7 @@ export default function CardDetailModal({ cardId, board, onClose, onArchive, onD
                             <button className="btn btn-subtle" style={{ padding: '0', textDecoration: 'underline' }} onClick={() => handleDeleteAttachment(attachment.id)}>Delete</button>
                             {isImage && (
                               <button className="btn btn-subtle" style={{ padding: '0', textDecoration: 'underline' }} onClick={() => handleMakeCover(attachment)}>
-                                {card.cover_image === `/uploads/${attachment.file_name}` ? 'Remove Cover' : 'Make Cover'}
+                                {card.cover_image === `${UPLOADS_BASE}/${attachment.file_name}` ? 'Remove Cover' : 'Make Cover'}
                               </button>
                             )}
                           </div>
@@ -842,8 +843,8 @@ export default function CardDetailModal({ cardId, board, onClose, onArchive, onD
                     />
                   ))}
                 </div>
-                {card.cover_color && (
-                  <button className="btn btn-secondary" onClick={handleRemoveCover} style={{ width: '100%' }}>Remove Cover</button>
+                {(card.cover_color || card.cover_image) && (
+                  <button className="btn btn-secondary" onClick={handleRemoveCover} style={{ width: '100%', marginTop: '8px' }}>Remove Cover</button>
                 )}
               </div>
             </div>

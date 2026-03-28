@@ -1,5 +1,7 @@
 const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
-const UPLOADS_BASE = import.meta.env.VITE_UPLOADS_BASE_URL || '/uploads';
+// Extract base domain for uploads (remove /api if it exists)
+const SERVER_URL = API_BASE.replace('/api', '');
+export const UPLOADS_BASE = SERVER_URL.endsWith('/') ? `${SERVER_URL}uploads` : `${SERVER_URL}/uploads`;
 
 async function request(url, options = {}) {
   const config = {

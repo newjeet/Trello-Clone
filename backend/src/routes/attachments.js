@@ -47,18 +47,22 @@ router.post('/cards/:cardId/attachments', upload.single('file'), async (req, res
     // Insert into DB
     const [result] = await pool.query(
       'INSERT INTO attachments (card_id, file_name, original_name, mime_type, size) VALUES (?, ?, ?, ?, ?)',
-      [cardId, file.filename, file.originalname, file.mimetype, file.size]
+      [parseInt(cardId), file.filename, file.originalname, file.mimetype, file.size]
     );
     
-    const [attachment] = await pool.query('SELECT * FROM attachments WHERE id = ?', [result.insertId]);
+    if (!result.insertId) {
+      throw new Error('Failed to insert attachment into database');
+    }
+
+    const [attachmentRows] = await pool.query('SELECT * FROM attachments WHERE id = ?', [result.insertId]);
     
     // Log activity
     await pool.query(
       'INSERT INTO activity_log (card_id, member_id, action, details) VALUES (?, ?, ?, ?)',
-      [cardId, 1, 'attached a file', file.originalname]
+      [parseInt(cardId), 1, 'attached a file', file.originalname]
     );
     
-    res.status(201).json(attachment[0]);
+    res.status(201).json(attachmentRows[0]);
   } catch (err) {
     if (req.file && req.file.path && fs.existsSync(req.file.path)) {
       fs.unlinkSync(req.file.path);
