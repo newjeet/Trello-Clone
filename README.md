@@ -15,7 +15,7 @@ A full-stack Trello-style Kanban board application built with React.js, Node.js/
 | **Font** | Inter (Google Fonts) |
 
 ### 🎮 Interactive Demo
-![Drag and Drop Demo](./screenshots/demo.webp)
+![Drag and Drop Demo](./screenshots/Screen%20Recording%202026-03-29%20043601.mp4)
 
 ---
 
@@ -160,6 +160,14 @@ Trello_antigravity/
 │               └── FilterBar.jsx
 └── README.md
 ```
+
+## 📸 Screenshots
+
+| Your Boards View | Board Development View |
+|:---:|:---:|
+| ![Your Boards](./screenshots/Screenshot%202026-03-29%20043359.png) | ![Board View](./screenshots/Screenshot%202026-03-29%20043412.png) |
+
+---
 
 ## 🧑‍💻 API Endpoints
 
