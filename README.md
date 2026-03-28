@@ -14,6 +14,11 @@ A full-stack Trello-style Kanban board application built with React.js, Node.js/
 | **Styling** | Vanilla CSS (Custom Design System) |
 | **Font** | Inter (Google Fonts) |
 
+### 🎮 Interactive Demo
+![Drag and Drop Demo](file:///C:/Users/india/.gemini/antigravity/brain/978e9edb-0b7b-4362-a2a2-c524b8517a5c/trello_drag_and_drop_demo_final_2026_03_29_1774738137060.webp)
+
+---
+
 ## 📋 Features
 
 ### Core Features
