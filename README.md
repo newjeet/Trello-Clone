@@ -105,8 +105,6 @@ cd frontend
 npm run dev
 ```
 
-Visit **http://localhost:5173** in your browser.
-
 ## 📁 Project Structure
 
 ```
